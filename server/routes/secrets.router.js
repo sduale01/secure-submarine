@@ -4,8 +4,9 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     if(req.isAuthenticated()) {
-        console.log('req.user:', req.user);
-    pool.query('SELECT * FROM "secret";')
+        console.log('reg.user:', req.user);
+        if(req.user)
+    pool.query('SELECT * FROM "secret" WHERE "secrecy_level" <= $1;', [req.user.clearance_level])
         .then(results => res.send(results.rows))
         .catch(error => {
             console.log('Error making SELECT for secrets:', error);

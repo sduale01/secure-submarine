@@ -12,12 +12,27 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   if (req.isAuthenticated()) {
     // They were authenticated! User may do the next thing
     // Note! They may not be Authorized to do all things
-    res.send(req.user);
+    
+    console.log(req.user);
+    
   } else {
     // They are not authenticated.
     res.sendStatus(403);
   }
 });
+
+// REturn all of the registered users after user is logged in.
+// router.get('/return', (req,res) => {
+//   if(res.isAuthenticated()) {
+//     const queryText = `SELECT * FROM "person"`;
+//     pool.query(queryText).then(response => {
+//       console.log(response);
+//     }).catch(error => {
+//       console.log('error in making a GET for users', error);
+//       res.sendStatus(500);
+//     });
+//   }
+// });
 
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
